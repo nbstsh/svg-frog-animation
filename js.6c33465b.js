@@ -3,4 +3,4 @@ parcelRequire=function(e,r,t,n){var i,o="function"==typeof parcelRequire&&parcel
 },{}],"QvaY":[function(require,module,exports) {
 "use strict";require("../styles/main.scss");
 },{"../styles/main.scss":"L/DU"}]},{},["QvaY"], null)
-//# sourceMappingURL=svg-frog-animation/js.6c33465b.js.map
+//# sourceMappingURL=/js.6c33465b.js.map
