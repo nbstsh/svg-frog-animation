@@ -18,13 +18,11 @@ body {
   min-width: 100vw;
   min-height: 100vh;
   background-color: rgb(243, 243, 243);
-  padding: 5rem 0;
 }
 
 .frog-section {
-
   width: 100%;
-  min-height: calc(100vh - 5rem);
+  min-height: 100vh;
   max-width: 80rem;
   margin: 0 auto;
   border: 1px solid rgb(80, 80, 80);
@@ -35,22 +33,25 @@ body {
 }
 
 .frog-box {
-  width: 10rem;
-  height: 10rem;
+  --frog-width:10;
+  --frog-height:10;
+  --distance-rate:0.1;
+  --animation-duration-value:8000;
+  --animation-duration:calc(var(--animation-duration-value) * 1ms);
+  --bottom-distance:0;
+  
+  width: calc(var(--frog-width) * 1rem);
+  height: calc(var(--frog-height) * 1rem);
+  transform: translateY(calc(var(--bottom-distance) * -1));
 }
 
-@keyframes animateForgBox {
-  to {
-
-  }
-}
 
 /* frog animation */
 
 #frog {
   width: 100%;
   height: 100%;
-  animation: animateFrog 8s infinite;
+  animation: animateFrog var(--animation-duration) infinite;
 }
 
 @keyframes animateFrog {
@@ -70,7 +71,7 @@ body {
     transform: translateY(-5%);
   }
   62.5% {
-    transform: translateY(-10%);
+    transform: translateY(-9%);
   }
   75% {
     transform: translateY(-10%);
@@ -85,26 +86,26 @@ body {
 
 #right-hand {
   transform-origin: bottom left;
-  animation: animateRightHand 8s linear infinite;
+  animation: animateRightHand var(--animation-duration) linear infinite;
 }
 
 #left-hand {
   transform-origin: bottom right;
-  animation: animateLeftHand 8s linear infinite;
+  animation: animateLeftHand var(--animation-duration) linear infinite;
 }
 
 #body {
   transform-origin: center;
-  animation: animateBody 8s linear infinite;
+  animation: animateBody var(--animation-duration) linear infinite;
 }
 
 #right-leg {
   transform-origin: left bottom;
-  animation: animateRightLeg 8s linear infinite;
+  animation: animateRightLeg var(--animation-duration) linear infinite;
 }
 #left-leg {
   transform-origin: right bottom;
-  animation: animateLeftLeg 8s linear infinite;
+  animation: animateLeftLeg var(--animation-duration) linear infinite;
 }
 
 
@@ -187,7 +188,7 @@ body {
     transform: rotate(-15deg);
   }
   50% {
-    transform: rotate(-15deg);
+    transform: rotate(-15deg) translateY(-3%) scale(1.05);
   }
   56.25% {
     transform: rotate(-15deg) translateY(-3%) scale(1.05);

@@ -1,12 +1,25 @@
-const boxEl = document.querySelector('#frog-box');
-const animationInterval = 8000;
+import '../styles/main.scss';
 
-let marginBottom = 0;
-let distance = 1;
+/* css custom variable names */
+const CSS_VAR_FROG_HEIGHT = '--frog-height';
+const CSS_VAR_DISTANCE_RATE = '--distance-rate';
+const CSS_VAR_ANIMATION_DURATION_VALUE = '--animation-duration-value';
+const CSS_VAR_BOTTOM_DISTANCE = '--bottom-distance';
 
-const moveUpBox = () => {
-  marginBottom += distance;
-  boxEl.style.marginBottom = `${marginBottom}rem`;
-}
+const boxEl = document.querySelector('.frog-box');
+const animationDuration = getComputedStyle(boxEl).getPropertyValue(CSS_VAR_ANIMATION_DURATION_VALUE);
+const height = getComputedStyle(boxEl).getPropertyValue(CSS_VAR_FROG_HEIGHT);
+const distanceRate = getComputedStyle(boxEl).getPropertyValue(CSS_VAR_DISTANCE_RATE);
+const distance = Number(height) * Number(distanceRate);
 
-setInterval(moveUpBox, animationInterval);
+const moveUpBox = (function() {
+  let bottomDistatnce = 0;
+  return () => {
+    bottomDistatnce += distance;
+    boxEl.style.setProperty(CSS_VAR_BOTTOM_DISTANCE, `${bottomDistatnce}rem`);
+  }
+})();
+
+setInterval(moveUpBox, animationDuration);
+
+// TODO: カクツキが出てるから対処すること
