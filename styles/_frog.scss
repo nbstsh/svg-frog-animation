@@ -1,0 +1,280 @@
+// unit of the length is rem
+$total-length: 80;
+$frog-height: 10;
+$frog-width: 10;
+
+$distance-ratio: 0.2;
+$frog-animation-distance: $frog-height * $distance-ratio;
+$frog-animation-count: $total-length / $frog-animation-distance; // n
+
+// unit of the duration is s
+$unit-animation-duration: 5;
+$total-animation-duration: $frog-animation-count * $unit-animation-duration;
+
+@function generatePercentage($current, $index) {
+  $unit: 100 / $frog-animation-count;
+  $from: $unit * ($current - 1);
+  $increment: $unit / 8;
+
+  @return $from +  $increment * $index;
+}
+
+
+@function calcCountValue($from, $ratio) {
+  @return $from + $frog-animation-distance * -1rem * $ratio;
+}
+
+@mixin unitClimbUpWall($n) {
+  $from: ($n - 1) * $frog-animation-distance * -1;
+
+  $count-1-value: $from + $frog-animation-distance * .5 * -1rem;
+  $count-2-value: $from + $frog-animation-distance * .5 * -1rem;
+  $count-3-value: $from + $frog-animation-distance * .6 * -1rem;
+  $count-4-value: $from + $frog-animation-distance * .6 * -1rem;
+  $count-5-value: $from + $frog-animation-distance * .9 * -1rem;
+  $count-6-value: $from + $frog-animation-distance  * -.95rem;
+  $count-7-value: $from + $frog-animation-distance  * -1rem;
+
+  #{generatePercentage($n, 0)}% {
+    transform: translateY($from);
+  }
+  #{generatePercentage($n, 1)}% {
+    transform: translateY(calcCountValue($from, .4));
+  }
+  #{generatePercentage($n, 2)}% { 
+    transform: translateY(calcCountValue($from, .5));
+  }
+  #{generatePercentage($n, 3)}% {
+    transform: translateY(calcCountValue($from, .6));
+  }
+  #{generatePercentage($n, 4)}% {
+    transform: translateY(calcCountValue($from, .7));
+  }
+  #{generatePercentage($n, 5)}% {
+    transform: translateY(calcCountValue($from, .9));
+  }
+  #{generatePercentage($n, 6)}% {
+    transform: translateY(calcCountValue($from, .95));
+  }
+  #{generatePercentage($n, 7)}% {
+    transform: translateY(calcCountValue($from, 1));
+  }
+  #{generatePercentage($n, 8)}% {
+    transform: translateY(calcCountValue($from, 1));
+  }
+}
+
+.frog-section {
+  width: 100%;
+  min-height: 100vh;
+  max-width: 80rem;
+  margin: 0 auto;
+
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.wall{
+  display: flex;
+  align-items: flex-end;
+  height: $total-length * 1rem;
+}
+
+
+/* frog animation */
+.frog {
+  $total-duration: $total-animation-duration * 1s;
+  $unit-duration: $unit-animation-duration * 1s;
+
+  width: $frog-width * 1rem;
+  height: $frog-height * 1rem;
+
+  animation: climbUpWall $total-duration infinite;
+
+  .right-hand {
+    transform-origin: bottom left;
+    animation: animateRightHand $unit-duration linear infinite;
+  }
+
+  .left-hand {
+    transform-origin: bottom right;
+    animation: animateLeftHand $unit-duration linear infinite;
+  }
+
+  .body {
+    fill: #4ebd7d;
+    transform-origin: center;
+    animation: animateBody $unit-duration linear infinite;
+  }
+
+  .right-leg {
+    transform-origin: left bottom;
+    animation: animateRightLeg $unit-duration linear infinite;
+  }
+  .left-leg {
+    transform-origin: right bottom;
+    animation: animateLeftLeg $unit-duration linear infinite;
+  }
+}
+
+@keyframes climbUpWall {
+  @for $n from 1 through $frog-animation-count {
+    @include unitClimbUpWall($n);
+  }  
+}
+@keyframes animateRightHand {
+  0% {
+    transform: rotate(0deg);
+  }
+  12.5% {
+    transform: rotate(0deg);
+  }
+  25% { 
+    transform: rotate(-5deg);
+  }
+  37.5% {
+    transform: rotate(-5deg);
+  }
+  50% {
+    transform: rotate(-5deg);
+  }
+  62.5% {
+    transform: rotate(-5deg) translateY(5%);
+  }
+  75% {
+    transform: rotate(-5deg) translateY(5%);
+  }
+  87.5% {
+    transform: rotate(-5deg) translateY(5%);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes animateLeftHand {
+  0% {
+    transform: rotate(3deg) translateX(5%);
+  }
+  12.5% {
+    transform: rotate(3deg) translateX(5%) translateY(6.75%);
+  }
+  25% { 
+    transform: rotate(3deg) translateX(5%) translateY(6.75%);
+  }
+  57.5% {
+    transform: rotate(3deg) translateX(5%) translateY(6.75%);
+  }
+  50% {
+    transform: rotate(3deg) translateX(5%) translateY(6.75%);
+  }
+  62.5% {
+    transform: rotate(0);
+  }
+  75% {
+    transform: rotate(3deg) translateX(5%);
+  }
+  87.5% {
+    transform: rotate(3deg) translateX(5%);
+  }
+  100% {
+    transform: rotate(3deg) translateX(5%);
+  }
+}
+
+@keyframes animateBody {
+  0% {
+    transform: rotate(15deg) translateY(-5%) scale(1.05);
+  }
+  6.25% {
+    transform: rotate(0deg) translateY(-3%) scale(1.05);
+  }
+  12.5% {
+    transform: rotate(-10deg);
+  }
+  25% { 
+    transform: rotate(-15deg);
+  }
+  37.5% {
+    transform: rotate(-15deg);
+  }
+  50% {
+    transform: rotate(-15deg) translateY(-3%) scale(1.05);
+  }
+  56.25% {
+    transform: rotate(-15deg) translateY(-3%) scale(1.05);
+  }
+  62.5% {
+    transform: rotate(0deg) translateY(-3%) scale(1.05);
+  }
+  75% {
+    transform: rotate(15deg);
+  }
+  87.5% {
+    transform: rotate(15deg);
+  }
+  100% {
+    transform: rotate(15deg) translateY(-5%) scale(1.05);
+  }
+}
+
+@keyframes animateRightLeg {
+  0% {
+    transform: rotate(-7deg);
+  }
+  12.5% {
+    transform: rotate(0deg);
+  }
+  25% { 
+    transform: rotate(0deg);
+  }
+  37.5% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(0deg);
+  }
+  62.5% {
+    transform: rotate(0deg);
+  }
+  75% {
+    transform: rotate(-5deg);
+  }
+  87.5% {
+    transform: rotate(-7deg);
+  }
+  100% {
+    transform: rotate(-7deg);
+  }
+}
+
+@keyframes animateLeftLeg {
+  0% {
+    transform: rotate(0deg);
+  }
+  12.5% {
+    transform: rotate(0deg);
+  }
+  25% { 
+    transform: rotate(0deg);
+  }
+  37.5% {
+    transform: rotate(5deg);
+  }
+  50% {
+    transform: rotate(5deg);
+  }
+  62.5% {
+    transform: rotate(0deg);
+  }
+  75% {
+    transform: rotate(0deg);
+  }
+  87.5% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
