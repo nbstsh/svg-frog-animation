@@ -16,9 +16,8 @@ $total-animation-duration: $frog-animation-count * $unit-animation-duration;
   $from: $unit * ($current - 1);
   $increment: $unit / 8;
 
-  @return $from +  $increment * $index;
+  @return $from + $increment * $index;
 }
-
 
 @function calcCountValue($from, $ratio) {
   @return $from + $frog-animation-distance * -1rem * $ratio;
@@ -27,38 +26,46 @@ $total-animation-duration: $frog-animation-count * $unit-animation-duration;
 @mixin unitClimbUpWall($n) {
   $from: ($n - 1) * $frog-animation-distance * -1;
 
-  $count-1-value: $from + $frog-animation-distance * .5 * -1rem;
-  $count-2-value: $from + $frog-animation-distance * .5 * -1rem;
-  $count-3-value: $from + $frog-animation-distance * .6 * -1rem;
-  $count-4-value: $from + $frog-animation-distance * .6 * -1rem;
-  $count-5-value: $from + $frog-animation-distance * .9 * -1rem;
-  $count-6-value: $from + $frog-animation-distance  * -.95rem;
-  $count-7-value: $from + $frog-animation-distance  * -1rem;
+  $count-1-value: $from + $frog-animation-distance * 0.5 * -1rem;
+  $count-2-value: $from + $frog-animation-distance * 0.5 * -1rem;
+  $count-3-value: $from + $frog-animation-distance * 0.6 * -1rem;
+  $count-4-value: $from + $frog-animation-distance * 0.6 * -1rem;
+  $count-5-value: $from + $frog-animation-distance * 0.9 * -1rem;
+  $count-6-value: $from + $frog-animation-distance * -0.95rem;
+  $count-7-value: $from + $frog-animation-distance * -1rem;
 
   #{generatePercentage($n, 0)}% {
     transform: translateY($from);
   }
+
   #{generatePercentage($n, 1)}% {
-    transform: translateY(calcCountValue($from, .4));
+    transform: translateY(calcCountValue($from, 0.4));
   }
-  #{generatePercentage($n, 2)}% { 
-    transform: translateY(calcCountValue($from, .5));
+
+  #{generatePercentage($n, 2)}% {
+    transform: translateY(calcCountValue($from, 0.5));
   }
+
   #{generatePercentage($n, 3)}% {
-    transform: translateY(calcCountValue($from, .6));
+    transform: translateY(calcCountValue($from, 0.6));
   }
+
   #{generatePercentage($n, 4)}% {
-    transform: translateY(calcCountValue($from, .7));
+    transform: translateY(calcCountValue($from, 0.7));
   }
+
   #{generatePercentage($n, 5)}% {
-    transform: translateY(calcCountValue($from, .9));
+    transform: translateY(calcCountValue($from, 0.9));
   }
+
   #{generatePercentage($n, 6)}% {
-    transform: translateY(calcCountValue($from, .95));
+    transform: translateY(calcCountValue($from, 0.95));
   }
+
   #{generatePercentage($n, 7)}% {
     transform: translateY(calcCountValue($from, 1));
   }
+
   #{generatePercentage($n, 8)}% {
     transform: translateY(calcCountValue($from, 1));
   }
@@ -75,12 +82,11 @@ $total-animation-duration: $frog-animation-count * $unit-animation-duration;
   align-items: flex-end;
 }
 
-.wall{
+.wall {
   display: flex;
   align-items: flex-end;
   height: $total-length * 1rem;
 }
-
 
 /* frog animation */
 .frog {
@@ -112,6 +118,7 @@ $total-animation-duration: $frog-animation-count * $unit-animation-duration;
     transform-origin: left bottom;
     animation: animateRightLeg $unit-duration linear infinite;
   }
+
   .left-leg {
     transform-origin: right bottom;
     animation: animateLeftLeg $unit-duration linear infinite;
@@ -121,33 +128,42 @@ $total-animation-duration: $frog-animation-count * $unit-animation-duration;
 @keyframes climbUpWall {
   @for $n from 1 through $frog-animation-count {
     @include unitClimbUpWall($n);
-  }  
+  }
 }
+
 @keyframes animateRightHand {
   0% {
     transform: rotate(0deg);
   }
+
   12.5% {
     transform: rotate(0deg);
   }
-  25% { 
+
+  25% {
     transform: rotate(-5deg);
   }
+
   37.5% {
     transform: rotate(-5deg);
   }
+
   50% {
     transform: rotate(-5deg);
   }
+
   62.5% {
     transform: rotate(-5deg) translateY(5%);
   }
+
   75% {
     transform: rotate(-5deg) translateY(5%);
   }
+
   87.5% {
     transform: rotate(-5deg) translateY(5%);
   }
+
   100% {
     transform: rotate(0deg);
   }
@@ -157,27 +173,35 @@ $total-animation-duration: $frog-animation-count * $unit-animation-duration;
   0% {
     transform: rotate(3deg) translateX(5%);
   }
+
   12.5% {
     transform: rotate(3deg) translateX(5%) translateY(6.75%);
   }
-  25% { 
+
+  25% {
     transform: rotate(3deg) translateX(5%) translateY(6.75%);
   }
+
   57.5% {
     transform: rotate(3deg) translateX(5%) translateY(6.75%);
   }
+
   50% {
     transform: rotate(3deg) translateX(5%) translateY(6.75%);
   }
+
   62.5% {
     transform: rotate(0);
   }
+
   75% {
     transform: rotate(3deg) translateX(5%);
   }
+
   87.5% {
     transform: rotate(3deg) translateX(5%);
   }
+
   100% {
     transform: rotate(3deg) translateX(5%);
   }
@@ -187,33 +211,43 @@ $total-animation-duration: $frog-animation-count * $unit-animation-duration;
   0% {
     transform: rotate(15deg) translateY(-5%) scale(1.05);
   }
+
   6.25% {
     transform: rotate(0deg) translateY(-3%) scale(1.05);
   }
+
   12.5% {
     transform: rotate(-10deg);
   }
-  25% { 
+
+  25% {
     transform: rotate(-15deg);
   }
+
   37.5% {
     transform: rotate(-15deg);
   }
+
   50% {
     transform: rotate(-15deg) translateY(-3%) scale(1.05);
   }
+
   56.25% {
     transform: rotate(-15deg) translateY(-3%) scale(1.05);
   }
+
   62.5% {
     transform: rotate(0deg) translateY(-3%) scale(1.05);
   }
+
   75% {
     transform: rotate(15deg);
   }
+
   87.5% {
     transform: rotate(15deg);
   }
+
   100% {
     transform: rotate(15deg) translateY(-5%) scale(1.05);
   }
@@ -223,27 +257,35 @@ $total-animation-duration: $frog-animation-count * $unit-animation-duration;
   0% {
     transform: rotate(-7deg);
   }
+
   12.5% {
     transform: rotate(0deg);
   }
-  25% { 
+
+  25% {
     transform: rotate(0deg);
   }
+
   37.5% {
     transform: rotate(0deg);
   }
+
   50% {
     transform: rotate(0deg);
   }
+
   62.5% {
     transform: rotate(0deg);
   }
+
   75% {
     transform: rotate(-5deg);
   }
+
   87.5% {
     transform: rotate(-7deg);
   }
+
   100% {
     transform: rotate(-7deg);
   }
@@ -253,27 +295,35 @@ $total-animation-duration: $frog-animation-count * $unit-animation-duration;
   0% {
     transform: rotate(0deg);
   }
+
   12.5% {
     transform: rotate(0deg);
   }
-  25% { 
+
+  25% {
     transform: rotate(0deg);
   }
+
   37.5% {
     transform: rotate(5deg);
   }
+
   50% {
     transform: rotate(5deg);
   }
+
   62.5% {
     transform: rotate(0deg);
   }
+
   75% {
     transform: rotate(0deg);
   }
+
   87.5% {
     transform: rotate(0deg);
   }
+
   100% {
     transform: rotate(0deg);
   }

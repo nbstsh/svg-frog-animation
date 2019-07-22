@@ -4,17 +4,27 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "parcel index.html",
-    "build": "parcel build index.html --public-url /svg-frog-animation/",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "watch:sass": "node-sass src/sass/main.scss public/css/style.css -w",
+    "devserver": "live-server public",
+    "start": "npm-run-all --parallel devserver watch:sass",
+    "compile:sass": "node-sass src/sass/main.scss tmp/style.comp.css",
+    "prefix:css": "postcss --use autoprefixer -b 'last 10 versions' tmp/style.comp.css -o tmp/style.prefix.css",
+    "compress:css": "node-sass tmp/style.prefix.css public/css/style.css --output-style compressed",
+    "cleanup:css": "rm tmp/style.prefix.css tmp/style.comp.css",
+    "build:css": "npm-run-all compile:sass prefix:css compress:css cleanup:css",
+    "predeploy": "npm run build:css",
+    "deploy": "gh-pages -d public"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "autoprefixer": "^9.6.1",
+    "concat": "^1.0.3",
     "gh-pages": "^2.0.1",
-    "parcel-bundler": "^1.12.3",
-    "sass": "^1.22.7"
+    "live-server": "^1.2.1",
+    "node-sass": "^4.12.0",
+    "npm-run-all": "^4.1.5",
+    "postcss-cli": "^6.1.3"
   }
 }
